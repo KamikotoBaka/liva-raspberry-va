@@ -1,2 +1,29 @@
 project/models/faster-whisper/
 project/models/**/*.bin
+
+# Python
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.venv/
+**/venv/
+
+# Node / frontend
+**/node_modules/
+**/dist/
+
+# Logs and runtime artifacts
+**/*.log
+project/logs/
+
+# Local env/config secrets
+.env
+.env.*
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
