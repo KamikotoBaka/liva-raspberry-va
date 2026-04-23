@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  liva-assistant:
+    build: .
+    container_name: liva-voice-assistant
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+      - ./config:/app/config
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LIVA_NON_THINKING_MODEL=qwen2.5:1.5b-instruct
+      - LIVA_OLLAMA_URL=http://ollama:11434
+      - ASSISTANT_BASE_URL=http://liva-assistant:8000
+    restart: unless-stopped
+    networks:
+      - liva-network
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: liva-ollama
+    volumes:
+      - ./ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    restart: unless-stopped
+    networks:
+      - liva-network
+    # Uncomment for GPU support on Raspberry Pi with GPU
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: liva-mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto_data:/mosquitto/data
+      - ./mosquitto_config:/mosquitto/config
+      - ./mosquitto_logs:/mosquitto/log
+    restart: unless-stopped
+    networks:
+      - liva-network
+
+networks:
+  liva-network:
+    driver: bridge
