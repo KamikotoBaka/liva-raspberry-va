@@ -4,15 +4,6 @@
 
 This is an optimized version of LIVA for Raspberry Pi deployment, with the thinking model removed and using only the non-thinking model for better performance on resource-constrained devices.
 
-## Changes from Desktop Version
-
-- ✅ Removed thinking model (qwen2.5:3b-instruct) - saves 1.5GB+ memory
-- ✅ Removed BME680 sensor service
-- ✅ Removed factory order service
-- ✅ Removed highbay stock service
-- ✅ Optimized for 1.5B parameter model on ARM processors
-- ✅ Created Docker setup for easy deployment
-
 ## System Requirements
 
 ### Minimum (Tested)

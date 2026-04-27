@@ -14,7 +14,6 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libopenblas-dev \
-    libatlas-base-dev \
     libffi-dev \
     libssl-dev \
     libjpeg-dev \
