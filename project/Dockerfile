@@ -42,8 +42,8 @@ EXPOSE 8000
 # Environment variables for Raspberry Pi optimization
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV LIVA_NON_THINKING_MODEL=qwen2.5:1.5b-instruct
-ENV LIVA_OLLAMA_URL=http://127.0.0.1:11434
+ENV LIVA_MODEL=Qwen3.5-0.8B-Q5_K_M.gguf
+ENV LIVA_OLLAMA_URL=http://ollama:11434
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \

@@ -1,11 +1,60 @@
-version: '3.8'
-
 services:
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: liva-npm
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    environment:
+      - DB_MYSQL_HOST=npm-db
+      - DB_MYSQL_PORT=3306
+      - DB_MYSQL_USER=npm
+      - DB_MYSQL_PASSWORD=npm_password_change_me
+      - DB_MYSQL_NAME=npm
+    volumes:
+      - ./npm_data:/data
+      - ./npm_letsencrypt:/etc/letsencrypt
+    networks:
+      - liva-network
+    depends_on:
+      - npm-db
+
+  npm-db:
+    image: 'mariadb:latest'
+    container_name: liva-npm-db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=npm_root_password_change_me
+      - MYSQL_DATABASE=npm
+      - MYSQL_USER=npm
+      - MYSQL_PASSWORD=npm_password_change_me
+    volumes:
+      - ./npm_db_data:/var/lib/mysql
+    networks:
+      - liva-network
+
+  liva-frontend:
+    build:
+      context: ./vite-project
+      dockerfile: Dockerfile
+    container_name: liva-frontend
+    expose:
+      - "5173"
+    environment:
+      - VITE_API_URL=http://liva-assistant:8000
+    restart: unless-stopped
+    networks:
+      - liva-network
+    depends_on:
+      - liva-assistant
+
   liva-assistant:
     build: .
     container_name: liva-voice-assistant
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     volumes:
       - ./data:/app/data
       - ./models:/app/models
@@ -13,7 +62,7 @@ services:
       - ./config:/app/config
     environment:
       - PYTHONUNBUFFERED=1
-      - LIVA_NON_THINKING_MODEL=qwen2.5:1.5b-instruct
+      - LIVA_MODEL=Qwen3.5-0.8B-Q5_K_M.gguf
       - LIVA_OLLAMA_URL=http://ollama:11434
       - ASSISTANT_BASE_URL=http://liva-assistant:8000
     restart: unless-stopped

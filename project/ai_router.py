@@ -20,14 +20,14 @@ class AIRouter:
     1. Fast Tier: Pattern-based intent matching (regex, instant response)
     2. Smart Tier: LLM-based classification (fallback for unknowns)
     
-    Uses lightweight non-thinking model (qwen2.5:1.5b-instruct) only.
+    Uses lightweight non-thinking model (Qwen3.5-0.8B-Q5_K_M.gguf) only.
     """
     
     def __init__(self, dispatcher, settings_getter) -> None:
         self.dispatcher = dispatcher
         self.settings_getter = settings_getter
         self.ollama_url = os.getenv("LIVA_OLLAMA_URL", "http://127.0.0.1:11434").rstrip("/")
-        self.model = os.getenv("LIVA_MODEL", "qwen2.5:1.5b-instruct")
+        self.model = os.getenv("LIVA_MODEL", "Qwen3.5-0.8B-Q5_K_M.gguf")
 
     def handle_text(self, text: str) -> dict:
         normalized_text = text.strip()
@@ -147,7 +147,7 @@ class AIRouter:
         intent = response.strip().split()[0].lower() if response.strip() else None
         
         # Validate it's a reasonable intent
-        if intent and len(intent) < 50 and "_" in intent or intent.isalpha():
+        if intent and len(intent) < 50 and ("_" in intent or intent.isalpha()):
             return intent
         
         return None
