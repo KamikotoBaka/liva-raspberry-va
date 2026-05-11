@@ -21,3 +21,12 @@ vite-project/node_modules
 README.md
 training/
 docs/
+npm_db_data/
+npm_data/
+npm_letsencrypt/
+mosquitto_data/
+mosquitto_logs/
+ollama_data/
+models/
+data/
+logs/

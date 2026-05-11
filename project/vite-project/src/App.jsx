@@ -6,6 +6,14 @@ import VoiceCommands from './components/VoiceCommands.jsx'
 
 import { loadAssistantSettings } from './settingsStore.js'
 
+// Get the API base URL (set by frontend startup script or environment)
+const API_BASE_URL = typeof window !== 'undefined' && window.API_BASE_URL 
+  ? window.API_BASE_URL 
+  : (import.meta.env.VITE_API_URL || 'http://localhost:8000')
+
+// Helper to build full API URLs
+const apiUrl = (path) => `${API_BASE_URL}${path.startsWith('/') ? path : '/' + path}`
+
 const COMMANDS_STORAGE_KEY = 'voice-assistant-saved-commands'
 const CATEGORIES_STORAGE_KEY = 'voice-assistant-command-categories'
 const WAKE_WORD = 'liva'
@@ -310,7 +318,7 @@ function App() {
 
   const fetchErrorEvents = async () => {
     try {
-      const response = await fetch('/api/errors')
+      const response = await fetch(apiUrl('/api/errors'))
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`)
       }
@@ -323,7 +331,7 @@ function App() {
 
   const deleteErrorEvent = async (eventId) => {
     try {
-      const response = await fetch(`/api/errors/${eventId}`, { method: 'DELETE' })
+      const response = await fetch(apiUrl(`/api/errors/${eventId}`), { method: 'DELETE' })
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`)
       }
@@ -563,7 +571,7 @@ function App() {
   }
 
   const sendChatTurn = async (text) => {
-    const response = await fetch('/api/chat/turn', {
+    const response = await fetch(apiUrl('/api/chat/turn'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text }),
