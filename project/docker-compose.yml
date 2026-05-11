@@ -92,19 +92,7 @@ services:
     #           count: 1
     #           capabilities: [gpu]
 
-  mosquitto:
-    image: eclipse-mosquitto:latest
-    container_name: liva-mosquitto
-    ports:
-      - "1883:1883"
-      - "9001:9001"
-    volumes:
-      - ./mosquitto_data:/mosquitto/data
-      - ./mosquitto_config:/mosquitto/config
-      - ./mosquitto_logs:/mosquitto/log
-    restart: unless-stopped
-    networks:
-      - liva-network
+  
 
 networks:
   liva-network:
