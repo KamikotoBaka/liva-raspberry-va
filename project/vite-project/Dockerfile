@@ -2,7 +2,7 @@
 # Multi-stage build: Build stage + Production stage
 
 # Build Stage
-FROM node:20-alpine AS builder
+FROM node:20-bookworm-slim AS builder
 
 # Set metadata
 LABEL maintainer="M&M Software GmbH"
@@ -19,7 +19,8 @@ ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 COPY package.json package-lock.json ./
 
 # Install all dependencies (including devDependencies for build)
-RUN npm ci
+# Retry once to avoid transient esbuild install issues on some container filesystems.
+RUN npm ci --no-audit --no-fund || (npm cache clean --force && npm ci --no-audit --no-fund)
 
 # Copy application files
 COPY . .
@@ -28,7 +29,7 @@ COPY . .
 RUN npm run build
 
 # Production Stage
-FROM node:20-alpine
+FROM node:20-bookworm-slim
 
 # Set metadata
 LABEL maintainer="M&M Software GmbH"
