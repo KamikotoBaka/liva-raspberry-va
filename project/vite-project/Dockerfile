@@ -33,11 +33,8 @@ LABEL description="LIVA Voice Assistant - Frontend (Vite) - Raspberry Pi Edition
 # Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY package.json package-lock.json ./
-
-# Install only production dependencies
-RUN npm ci --omit=dev
+# Install http-server for serving static files
+RUN npm install -g http-server
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
@@ -48,5 +45,5 @@ EXPOSE 5173
 # Environment variables
 ENV NODE_ENV=production
 
-# Start the preview server (production mode with HTTPS support)
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
+# Start http-server to serve the static dist folder
+CMD ["http-server", "dist", "-p", "5173", "-c-1", "--gzip"]

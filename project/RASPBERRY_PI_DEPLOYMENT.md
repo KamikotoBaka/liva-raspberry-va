@@ -34,7 +34,7 @@ This is an optimized version of LIVA for Raspberry Pi deployment, with the think
    curl https://ollama.ai/install.sh | sh
    
    # Pull the non-thinking model (takes time on RPi)
-   ollama pull Qwen3.5-0.8B-Q5_K_M.gguf
+   ollama pull qwen2.5:1.5b-instruct
    ```
 
 ## Deployment
@@ -165,9 +165,9 @@ du -sh /var/lib/docker/
 ## Environment Variables
 
 ```bash
-LIVA_NON_THINKING_MODEL=qwen2.5:1.5b-instruct  # Model to use
-LIVA_OLLAMA_URL=http://127.0.0.1:11434        # Ollama endpoint
-ASSISTANT_BASE_URL=http://127.0.0.1:8000      # This API endpoint
+LIVA_MODEL=qwen2.5:1.5b-instruct              # Ollama model to use
+LIVA_OLLAMA_URL=http://ollama:11434           # Ollama endpoint (http://127.0.0.1:11434 for native)
+ASSISTANT_BASE_URL=http://liva-assistant:8000 # This API endpoint
 PYTHONUNBUFFERED=1                            # Real-time logging
 ```
 
