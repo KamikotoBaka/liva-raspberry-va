@@ -131,6 +131,8 @@ app.add_middleware(
 		"http://localhost:5174",
 		"http://127.0.0.1:5174",
 		"http://192.168.0.179:5173",
+		"https://livapi.local",
+		"https://api.livapi.local",
 	],
 	allow_credentials=True,
 	allow_methods=["*"],

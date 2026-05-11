@@ -187,7 +187,7 @@ function App() {
   }
 
   const saveCustomCommandsToBackend = async (commands) => {
-    await fetch('/api/custom-commands', {
+    await fetch(apiUrl('/api/custom-commands'), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(commands),
@@ -209,7 +209,7 @@ function App() {
 
     const syncFromBackend = async () => {
       try {
-        const response = await fetch('/api/custom-commands')
+        const response = await fetch(apiUrl('/api/custom-commands'))
         if (!response.ok) {
           customCommandsSyncedRef.current = true
           return
@@ -302,7 +302,7 @@ function App() {
 
   const fetchWakewordStatus = async () => {
     try {
-      const response = await fetch('/api/wakeword/status')
+      const response = await fetch(apiUrl('/api/wakeword/status'))
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`)
       }
@@ -343,7 +343,7 @@ function App() {
 
   const downloadLogs = async () => {
     try {
-      const response = await fetch('/api/errors/export')
+      const response = await fetch(apiUrl('/api/errors/export'))
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`)
       }
@@ -641,7 +641,7 @@ function App() {
     const formData = new FormData()
     formData.append('audio', audioBlob, 'chat.webm')
 
-    const sttResponse = await fetch('/api/process-audio', {
+    const sttResponse = await fetch(apiUrl('/api/process-audio'), {
       method: 'POST',
       body: formData,
     })
@@ -745,7 +745,7 @@ function App() {
       sessionFormData.append('audio', audioBlob, 'command.webm')
       sessionFormData.append('authToken', authToken)
 
-      audioRes = await fetch('/api/process-audio-session', {
+        audioRes = await fetch(apiUrl('/api/process-audio-session'), {
         method: 'POST',
         body: sessionFormData,
       })
@@ -761,7 +761,7 @@ function App() {
     if (!audioRes) {
       const secureFormData = new FormData()
       secureFormData.append('audio', audioBlob, 'command.webm')
-      audioRes = await fetch('/api/process-audio-secure', {
+        audioRes = await fetch(apiUrl('/api/process-audio-secure'), {
         method: 'POST',
         body: secureFormData,
       })
@@ -824,7 +824,7 @@ function App() {
       const formData = new FormData()
       formData.append('audio', audioBlob, 'command.webm')
 
-      const response = await fetch('/api/process-audio', {
+        const response = await fetch(apiUrl('/api/process-audio'), {
         method: 'POST',
         body: formData,
       })
@@ -1136,7 +1136,7 @@ function App() {
         const samples = Array.from(event.inputBuffer.getChannelData(0))
 
         try {
-          const response = await fetch('/api/wakeword/detect', {
+            const response = await fetch(apiUrl('/api/wakeword/detect'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

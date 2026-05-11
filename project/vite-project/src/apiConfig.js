@@ -17,19 +17,23 @@ const getApiBaseUrl = () => {
   // This works when backend is on :8000 and frontend on :5173
   if (typeof window !== 'undefined' && window.location.hostname) {
     const hostname = window.location.hostname
-    const port = window.location.port ? `:${window.location.port}` : ''
     
     // If we're on port 5173 (Vite dev), go to 8000 (backend)
     if (window.location.port === '5173') {
       return `http://${hostname}:8000`
     }
     
-    // If we're on 80/443 (production), assume API is at /api path (proxied by reverse proxy)
+    // In production, use the api subdomain next to the current host.
+    if (hostname.startsWith('api.')) {
+      return `${window.location.protocol}//${hostname}`
+    }
+
+    // livapi.local -> api.livapi.local
     if (window.location.port === '80' || window.location.port === '443' || !window.location.port) {
-      return `http://${hostname}` // relative to current origin
+      return `${window.location.protocol}//api.${hostname}`
     }
     
-    return `http://${hostname}${port}`
+    return `${window.location.protocol}//api.${hostname}`
   }
 
   // Fallback
