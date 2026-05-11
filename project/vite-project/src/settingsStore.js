@@ -1,6 +1,9 @@
+import { apiUrl } from './apiConfig.js'
+
 export const ASSISTANT_SETTINGS_STORAGE_KEY = 'voice-assistant-ui-settings'
-const SETTINGS_API_PATH = '/api/settings'
-const SETTINGS_EFFECTIVE_API_PATH = '/api/settings/effective'
+
+const SETTINGS_API_PATH = apiUrl('/api/settings')
+const SETTINGS_EFFECTIVE_API_PATH = apiUrl('/api/settings/effective')
 
 export const DEFAULT_ASSISTANT_SETTINGS = {
   theme: 'white',
