@@ -53,8 +53,8 @@ services:
   liva-assistant:
     build: .
     container_name: liva-voice-assistant
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"
     volumes:
       - ./data:/app/data
       - ./models:/app/models
