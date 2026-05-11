@@ -44,20 +44,26 @@ export const API_BASE_URL = getApiBaseUrl()
 
 /**
  * Helper to build full API endpoint URL
+ * Reads runtime-injected window.API_BASE_URL on every call for production support
  * @param {string} path - API path (e.g., '/api/chat/turn')
  * @returns {string} - Full URL
  */
 export const apiUrl = (path) => {
+  // Always check for runtime-injected API URL first (set by frontend startup script)
+  const baseUrl = (typeof window !== 'undefined' && window.API_BASE_URL) 
+    ? window.API_BASE_URL 
+    : API_BASE_URL
+  
   if (!path.startsWith('/')) {
     path = '/' + path
   }
   
-  // If API_BASE_URL doesn't include /api, append it
-  if (!API_BASE_URL.includes('/api') && !path.startsWith('/api')) {
-    return `${API_BASE_URL}/api${path}`
+  // If baseUrl doesn't include /api, append it
+  if (!baseUrl.includes('/api') && !path.startsWith('/api')) {
+    return `${baseUrl}/api${path}`
   }
   
-  return `${API_BASE_URL}${path}`
+  return `${baseUrl}${path}`
 }
 
 // For convenience: fetch wrapper that uses correct API URL
