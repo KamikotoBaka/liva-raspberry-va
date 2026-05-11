@@ -40,12 +40,12 @@ services:
       context: ./vite-project
       dockerfile: Dockerfile
       args:
-        - VITE_API_BASE_URL=https://api.livapi.local
+        - VITE_API_BASE_URL=https://livapi.local
     container_name: liva-frontend
     ports:
       - "5173:5173"
     environment:
-      - VITE_API_BASE_URL=https://api.livapi.local
+      - VITE_API_BASE_URL=https://livapi.local
     restart: unless-stopped
     networks:
       - liva-network
