@@ -1,0 +1,34 @@
+[
+  {
+    "id": "lights_on",
+    "audio": "tests/audio/lights_on.wav",
+    "transcript": "Turn on the light",
+    "expected_intent": "turn_on_light",
+    "category": "home",
+    "notes": "Short command for STT + dispatcher timing"
+  },
+  {
+    "id": "factory_status",
+    "audio": "tests/audio/factory_status.wav",
+    "transcript": "Show me the factory status",
+    "expected_intent": "system_status",
+    "category": "factory",
+    "notes": "Good command for MQTT / REST routing"
+  },
+  {
+    "id": "maintenance_question",
+    "audio": "tests/audio/maintenance_question.wav",
+    "transcript": "When was the last maintenance?",
+    "expected_intent": "chat_response",
+    "category": "llm",
+    "notes": "Useful for thinking-model latency"
+  },
+  {
+    "id": "factory_ordering",
+    "audio": "tests/audio/factory_ordering.wav",
+    "transcript": "Order a red workpiece",
+    "expected_intent": "Order a red workpiece",
+    "category": "factory",
+    "notes": "Good command for MQTT routing"
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "kitchen_lights_on",
+    "audio": "tests/audio/kitchen_lights_on.wav",
+    "transcript": "Turn on Kitchen lights",
+    "expected_intent": "turn_on_kitchen_light",
+    "category": "Building",
+    "notes": "Short command for Rest API"
+  }
+]
