@@ -34,7 +34,7 @@ This is an optimized version of LIVA for Raspberry Pi deployment, with the think
    curl https://ollama.ai/install.sh | sh
    
    # Pull the non-thinking model (takes time on RPi)
-   ollama pull Qwen3.5-0.8B-Q5_K_M.gguf
+   ollama pull qwen2.5:1.5b-instruct
    ```
 
 ## Deployment

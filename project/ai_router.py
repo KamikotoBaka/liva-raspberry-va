@@ -20,14 +20,14 @@ class AIRouter:
     1. Fast Tier: Pattern-based intent matching (regex, instant response)
     2. Smart Tier: LLM-based classification (fallback for unknowns)
     
-    Uses lightweight non-thinking model (Qwen3.5-0.8B-Q5_K_M.gguf) only.
+    Uses lightweight non-thinking model (qwen2.5:1.5b-instruct) only.
     """
     
     def __init__(self, dispatcher, settings_getter) -> None:
         self.dispatcher = dispatcher
         self.settings_getter = settings_getter
         self.ollama_url = os.getenv("LIVA_OLLAMA_URL", "http://127.0.0.1:11434").rstrip("/")
-        self.model = os.getenv("LIVA_MODEL", "qwen35-local")
+        self.model = os.getenv("LIVA_MODEL", "qwen2.5:1.5b-instruct")
 
     def handle_text(self, text: str) -> dict:
         normalized_text = text.strip()

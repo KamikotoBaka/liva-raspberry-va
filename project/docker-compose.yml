@@ -64,7 +64,7 @@ services:
       - ./config:/app/config
     environment:
       - PYTHONUNBUFFERED=1
-      - LIVA_MODEL=qwen35-local
+      - LIVA_MODEL=qwen2.5:1.5b-instruct
       - LIVA_OLLAMA_URL=http://ollama:11434
       - ASSISTANT_BASE_URL=http://liva-assistant:8000
     restart: unless-stopped
