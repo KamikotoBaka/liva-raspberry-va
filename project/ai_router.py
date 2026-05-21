@@ -27,7 +27,7 @@ class AIRouter:
         self.dispatcher = dispatcher
         self.settings_getter = settings_getter
         self.ollama_url = os.getenv("LIVA_OLLAMA_URL", "http://127.0.0.1:11434").rstrip("/")
-        self.model = os.getenv("LIVA_MODEL", "Qwen3.5-0.8B-Q5_K_M.gguf")
+        self.model = os.getenv("LIVA_MODEL", "qwen35-local")
 
     def handle_text(self, text: str) -> dict:
         normalized_text = text.strip()
