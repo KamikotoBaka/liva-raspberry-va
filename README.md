@@ -49,12 +49,10 @@ Ensure your Raspberry Pi 5 is running a 64-bit operating system (e.g., Raspberry
 Installation
 Clone the repository:
 
-Bash
 git clone [https://github.com/yourusername/liva.git](https://github.com/yourusername/liva.git)
 cd liva
 Spin up the local environment using Docker Compose:
 
-Bash
 docker compose up --build -d
 Access the FastAPI documentation and frontend via your browser to configure your specific models and smart home devices.
 
